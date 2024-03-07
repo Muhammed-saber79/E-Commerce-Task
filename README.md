@@ -65,7 +65,7 @@ The project consists of the following main components:
 
 ## API Documentation
 
-Detailed API documentation for various endpoints can be found [here](E-Commerce.postman_collection.json).
+Detailed API documentation (Postman Collection) for various endpoints can be found [here](E-Commerce.postman_collection.json).
 
 ## Usage
 
