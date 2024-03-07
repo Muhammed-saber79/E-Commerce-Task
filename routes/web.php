@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/admin');
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['guest:web']
+], function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'do_login'])->name('do_login');
+});
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['auth:web']
+], function () {
+    Route::get('/', [OrderController::class, 'index'])->name('home');
+    Route::get('/notifications', [OrderController::class, 'index'])->name('notifications');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -51,6 +51,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Role::class);
     }
 
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->role->name === $role;
+        }
+
+        return $role->contains($this->role);
+    }
+
     public function cart()
     {
         return $this->hasOne(Cart::class);
